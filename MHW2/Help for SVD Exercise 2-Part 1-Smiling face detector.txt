@@ -1,0 +1,31 @@
+% Some help for "SVD Exercise 2-Part 1: Smiling face detector":
+
+% Following code gives a possible answer for the final classification section.
+%This code calculates the average distance of each smiling face projection vector to the smiling class and to the neutral class. 
+The decision is made based on these two average distances. 
+
+
+% Use the coefficients of these projections to classify each smiling face
+%%
+for i = 1:length(smile)
+test_smile=smileWeights(:,i);
+distance_smile1=repmat(test_smile,1,(length(smile)-1));
+distance_smile2=[smileWeights(:,1:i-1) smileWeights(:,i+1:end)];
+distance_smile=distance_smile1-distance_smile2;
+distance_smile_val(i)=sum(vecnorm(distance_smile))/(length(smile)-1);
+end
+
+%%
+for i = 1:length(smile)
+test_smile=smileWeights(:,i);
+distance_neutral1=repmat(test_smile,1,(length(neutral)));
+distance_neutral2=[neutralWeights];
+distance_neutral=distance_neutral1-distance_neutral2;
+distance_neutral_val(i)=sum(vecnorm(distance_neutral))/(length(neutral));
+end
+
+%%
+for i = 1:length(smile)
+   decision(i)=distance_neutral_val(i)>= distance_smile_val(i)
+end
+sum(decision)/length(smile)

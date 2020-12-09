@@ -1,0 +1,5 @@
+Questionable use of curly braces in "nasa=sum(nasacolor,3,{double})"
+    Error: undefined symbol in: "[double]"
+Circuit: nasacolor=imread("TarantulaNebula.jpg")
+
+Fatal Error: Image: Missing node(s).
